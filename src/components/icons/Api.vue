@@ -49,7 +49,12 @@ export default {
       }).then(response => response.json())
         .then(response => {
           console.log(response)
-          window.location = response.result.run_status.output;
+
+          fetch(response.result.run_status.output)
+            .then((response) => response.text())
+            .then((data) => {
+              document.getElementById("textBoxOutput").value = data;
+            });
 
         });
       //response
@@ -58,13 +63,13 @@ export default {
     loadFile() {
 
       document.getElementById("fileImport")
-  .addEventListener("change", function () {
-    var fr = new FileReader();
-    fr.readAsText(this.files[0]);
-    fr.onload = function () {
-     document.getElementById("textBoxOutput").value= fr.result;
-    };  
-  });
+        .addEventListener("change", function () {
+          var fr = new FileReader();
+          fr.readAsText(this.files[0]);
+          fr.onload = function () {
+            document.getElementById("textBoxOutput").value = fr.result;
+          };
+        });
 
     }
 
@@ -92,7 +97,7 @@ export default {
   </div>
   <div>
     <div>
-      <button @click="fetchApi">Post my Api</button>
+      <v-btn variant="flat" color="secondary" @click="fetchApi">Post my Api</v-btn>
     </div>
     <textarea rows="4" cols="50" placeholder="ceva" id="textBox"></textarea>
     <textarea rows="4" cols="50" placeholder="ceva" id="textBoxOutput"></textarea>
@@ -104,8 +109,7 @@ export default {
       "
     </div>
   </div>
-  <input type="file" id="fileImport">
-  <button @click="loadFile()">Ceva</button>
+  
 
 </template>
 
