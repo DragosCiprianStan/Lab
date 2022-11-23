@@ -1,12 +1,12 @@
 <script></script>
 <script setup>
-import TheDeck from "./components/icons/Api.vue";
+import Api from "./components/icons/Api.vue";
 </script>
 
 <template>
 
 <main>
-    <TheDeck />
+    <Api />
   </main>
 </template>
 

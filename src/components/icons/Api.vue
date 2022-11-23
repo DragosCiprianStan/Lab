@@ -49,10 +49,22 @@ export default {
       }).then(response => response.json())
         .then(response => {
           console.log(response)
-          window.location=response.result.run_status.output;
+          window.location = response.result.run_status.output;
 
         });
       //response
+
+    },
+    loadFile() {
+
+      document.getElementById("fileImport")
+  .addEventListener("change", function () {
+    var fr = new FileReader();
+    fr.readAsText(this.files[0]);
+    fr.onload = function () {
+     document.getElementById("textBoxOutput").value= fr.result;
+    };  
+  });
 
     }
 
@@ -83,21 +95,22 @@ export default {
       <button @click="fetchApi">Post my Api</button>
     </div>
     <textarea rows="4" cols="50" placeholder="ceva" id="textBox"></textarea>
-    <textarea rows="4" cols="50" placeholder="ceva" id="textBoxOutPut"></textarea>
+    <textarea rows="4" cols="50" placeholder="ceva" id="textBoxOutput"></textarea>
+
     <p id="p"></p>
     <div v-if="getJson">
       <button @click="getApi">Get my Api</button>
 
-
+      "
     </div>
   </div>
-
+  <input type="file" id="fileImport">
+  <button @click="loadFile()">Ceva</button>
 
 </template>
 
 <style scoped>
-#textBoxOutPut{
-  left :10px;
+#textBoxOutPut {
+  left: 10px;
 }
-
 </style>
