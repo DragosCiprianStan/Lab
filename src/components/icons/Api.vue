@@ -1,4 +1,5 @@
 <script>
+
 export default {
   data() {
     return {
@@ -57,6 +58,7 @@ export default {
             });
 
         });
+        
       //response
 
     },

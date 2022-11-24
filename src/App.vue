@@ -2,13 +2,16 @@
 <script setup>
 import Api from "./components/icons/Api.vue";
 import Home from "./components/icons/Home.vue";
+import Admin from "./components/icons/Admin.vue";
 
 import { useTheme } from "vuetify";
 </script>
 <script>
 const routes = {
   "/": Home,
-  "/Api": Api,
+  "/Api":Api,
+  "/Admin":Admin,
+
 };
 export default {
   setup() {
@@ -22,7 +25,7 @@ export default {
   },
   computed: {
     currentView() {
-      return routes[this.currentPath.slice(1) || "/"] || NotFound;
+      return routes[this.currentPath.slice(1) || "/"];
     },
   },
   mounted() {
@@ -44,6 +47,8 @@ export default {
       <v-main>
         <component :is="currentView" />
       </v-main>
+    <v-btn href="#/Admin" icon="mdi-cards"></v-btn>
+    
     </v-app>
   </main>
 </template>
