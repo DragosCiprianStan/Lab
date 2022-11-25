@@ -3,14 +3,14 @@
 export default {
     data() {
         return {
-            keys:null,
+            keys: null,
 
         };
     },
     methods: {
         async verifyAdmin() {
-            let email=document.getElementById("email").value;
-            let password=document.getElementById("password").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
             await fetch('https://webproject-f4fe7-default-rtdb.firebaseio.com/Sefu.json',
                 {
                     method: "GET"
@@ -20,19 +20,20 @@ export default {
                     this.keys = Object.keys(data);
                     console.log(this.keys);
                 });
-                await fetch(`https://webproject-f4fe7-default-rtdb.firebaseio.com/Sefu/${this.keys}.json`,
+               
+            await fetch(`https://webproject-f4fe7-default-rtdb.firebaseio.com/Sefu/${this.keys}.json`,
                 {
                     method: "GET"
                 }).
                 then((resp) => resp.json())
                 .then(data => {
-                console.log(data);
-                    if((email===data.Email)&&(password===data.Password)){
-
+                    console.log(data);
+                    if ((email === data.Email) && (password === data.Password)) {
+                        window.location.href = "#/AddExericesVue";
                     }
                 });
-                
-               
+
+
 
         }
     },
@@ -51,7 +52,7 @@ export default {
         <v-btn variant="flat" color="secondary" @click="verifyAdmin">
             Secondary
         </v-btn>
-        
+        <v-btn href="#/Api" icon="mdi-cards"></v-btn>
     </v-main>
 
 
