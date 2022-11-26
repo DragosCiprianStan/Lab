@@ -52,7 +52,9 @@ export default {
       <v-main>
         <component :is="currentView" />
       </v-main>
-
+<v-footer>
+  <v-btn href="#/Admin">Admin</v-btn>
+</v-footer>
     
     </v-app>
   </main>
