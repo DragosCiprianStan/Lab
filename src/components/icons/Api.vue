@@ -4,7 +4,8 @@ export default {
   data() {
     return {
       getJson: null,
-      getLink: null
+      getLink: null,
+      ceva:null
     };
   },
   methods: {
@@ -12,14 +13,14 @@ export default {
       let url = 'https://api.hackerearth.com/v4/partner/code-evaluation/submissions/';
       let CLIENT_SECRET = '00cd6a25a9c47c0d21634f559db985a66c26b66e';
       let textBox = document.getElementById("textBox").value;
-
+      let inputValue = document.getElementById("textBoxInput").value;
       let language = document.getElementById("language").value;
 
 
       var data = {
         "lang": `${language}`,
         "source": `${textBox}`,
-        "input": "",
+        "input": `${inputValue}`,
         "memory_limit": 243232,
         "time_limit": 99999,
         "callback": "https://client.com/callback/",
@@ -62,6 +63,7 @@ export default {
       //response
 
     },
+    
     loadFile() {
 
       document.getElementById("fileImport")
@@ -73,8 +75,22 @@ export default {
           };
         });
 
-    }
+    },
+     async test(){
+      var data={
+        "location": "London"
+      };
+      await fetch('https://api.m3o.com/v1/weather/Now', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer NDY1MzYwYTMtZGFlMy00MjU5LTg0ZDMtZTQyOWVjZGU2NzVk',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(response => response.json())
+        .then(result => console.log(result));
 
+     }
   },
 };
 </script>
@@ -103,7 +119,9 @@ export default {
     </div>
     <textarea rows="4" cols="50" placeholder="ceva" id="textBox"></textarea>
     <textarea rows="4" cols="50" placeholder="ceva" id="textBoxOutput"></textarea>
-
+    <v-text-field bg-color="white" color="white" label="Input" placeholder="ceva"
+                                    variant="solo" id="textBoxInput">
+                                </v-text-field>
     <p id="p"></p>
     <div v-if="getJson">
       <button @click="getApi">Get my Api</button>
@@ -112,7 +130,7 @@ export default {
     </div>
   </div>
   
-
+  <button @click="test">Get my Api</button>
 </template>
 
 <style scoped>

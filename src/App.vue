@@ -38,16 +38,19 @@ export default {
       this.currentPath = window.location.hash;
     });
   },
-  methods: {},
+  methods: {
+    
+  },
 };
 </script>
 <template>
 
   <main>
     <v-app>
-      <v-app-bar title="My Deck">
-        <v-btn href="#/" icon="mdi-home"></v-btn>
-        <v-btn href="#/ExercicesPageVue" icon="mdi-cards"></v-btn>
+      <v-app-bar title="Code Remote">
+        <v-btn href="#/">Home</v-btn>
+        <v-btn href="#/ExercicesPageVue">Challange</v-btn>
+        <v-btn href="#/Api">Play</v-btn>
       </v-app-bar>
       <v-main>
         <component :is="currentView" />

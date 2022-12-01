@@ -20,7 +20,7 @@ export default {
                     this.keys = Object.keys(data);
                     console.log(this.keys);
                 });
-               
+
             await fetch(`https://webproject-f4fe7-default-rtdb.firebaseio.com/Sefu/${this.keys}.json`,
                 {
                     method: "GET"
@@ -47,12 +47,12 @@ export default {
         </v-responsive>
         <v-responsive class="mx-auto" max-width="344">
             <v-text-field label="Password" hide-details="auto" id="password"></v-text-field>
+            <v-btn variant="flat" color="secondary" @click="verifyAdmin">
+                Secondary
+            </v-btn>
         </v-responsive>
 
-        <v-btn variant="flat" color="secondary" @click="verifyAdmin">
-            Secondary
-        </v-btn>
-        <v-btn href="#/Api" icon="mdi-cards"></v-btn>
+
     </v-main>
 
 
