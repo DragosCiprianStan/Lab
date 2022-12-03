@@ -30,7 +30,7 @@ export default {
             getLevelProblem: [],
             radios: null,
             ex11: [],
-
+            saveLanguage: "#include <stdio.h>" + "\n" + "int main()" + "\n" + "{" + "\n" + "printf(\"Hello World\");" + "\n" + "return 0;" + "\n" + "}"
         };
     },
     methods: {
@@ -66,10 +66,15 @@ export default {
                     console.log(result)
                 });*/
             let url = 'https://api.hackerearth.com/v4/partner/code-evaluation/submissions/';
-            let CLIENT_SECRET = '00cd6a25a9c47c0d21634f559db985a66c26b66e';
+            let CLIENT_SECRET = '1a80e1a9dace5d8646d8638f34add000202f94bb';
             let textBox = document.getElementById("textBox").value;
             let language = document.getElementById("language").value;
             let inputValue = document.getElementById("textBoxInput").value;
+            let getIn1 = this.getInput1[this.saveIndex];
+            let getIn2 = this.getInput2[this.saveIndex];
+            let getIn3 = this.getInput3[this.saveIndex];
+            let saveInput = [getIn1, getIn2, getIn3];
+            console.log(saveInput);
 
             var data = {
                 "lang": `${language}`,
@@ -93,20 +98,18 @@ export default {
                     this.getJson = result;
                     console.log(result)
                 });
-                let saveGetInput=this.getInput[this.saveIndex];
-                console.log(saveGetInput);
 
-            for (let index = 1; index < this.getInput.length; index++) {
+            for (let index = 0; index < saveInput.length; index++) {
                 var data = {
                     "lang": `${language}`,
                     "source": `${textBox}`,
-                    "input": `${this.getInput[index]}`,
+                    "input": `${saveInput[index]}`,
                     "memory_limit": 243232,
                     "time_limit": 5000,
                     "callback": "https://client.com/callback/",
                     "id": "client-001"
                 };
-                console.log(this.getInput[index])
+                console.log(data);
                 await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -117,7 +120,7 @@ export default {
                 }).then((response) => response.json())
                     .then((result) => {
 
-                        this.getUrlFromVerify[index] = result.status_update_url;
+                        this.getUrlFromVerify[index + 1] = result.status_update_url;
                         console.log(result);
                     });
 
@@ -156,7 +159,7 @@ export default {
             console.log(this.getOutput1[this.saveIndex]);
             console.log(this.getOutput2[this.saveIndex]);
             console.log(this.getOutput3[this.saveIndex]);
-            
+
             if ((this.saveDataVerify[0].trim() === this.getOutput1[this.saveIndex].trim()) && (this.saveDataVerify[1].trim() === this.getOutput1[this.saveIndex].trim()) && (this.saveDataVerify[2].trim() === this.getOutput2[this.saveIndex].trim()) && (this.saveDataVerify[3].trim() === this.getOutput3[this.saveIndex].trim())) {
                 this.debuggIsOk = true;
             } else {
@@ -167,7 +170,7 @@ export default {
 
 
         async getApi() {
-            let CLIENT_SECRET = '00cd6a25a9c47c0d21634f559db985a66c26b66e';
+            let CLIENT_SECRET = '1a80e1a9dace5d8646d8638f34add000202f94bb';
 
             await fetch(this.getJson.status_update_url, {
                 method: 'GET',
@@ -247,7 +250,7 @@ export default {
                 console.log(this.getInput3[index])
 
             }
-         
+
 
         },
         getButton(getButt, index) {
@@ -256,11 +259,65 @@ export default {
         },
         radioCanger(any) {
             this.radios = any;
-        }
-
+        },
+        fillWithText(lang) {
+            this.saveLanguage = lang.target.value;
+            switch (lang.target.value) {
+                case "CPP":
+                    this.saveLanguage = "#include <iostream>" + "\n" +
+                        "using namespace std;" + "\n" +
+                        "int main()" + "\n" +
+                        "{" + "\n" +
+                        " cout<<'Hello World';" + "\n" +
+                        "return 0;" + "\n" +
+                        "}"
+                    break;
+                case "PYTHON":
+                    this.saveLanguage = "print ('Hello World')";
+                    break;
+                case "C":
+                    this.saveLanguage = "#include <stdio.h>" + "\n" +
+                        "int main()" + "\n" +
+                        "{" + "\n" +
+                        "printf(\"Hello World\");" + "\n" +
+                        "return 0;" + "\n" +
+                        "}"
+                    break;
+                case "JAVA8":
+                    this.saveLanguage = "public class Main" + "\n" +
+                        "{" + "\n" +
+                        "public static void main(String[] args) {" + "\n" +
+                        "System.out.println('Hello World');" + "\n" +
+                        "}" + "\n" +
+                        "}";
+                    break;
+                case "PHP":
+                    this.saveLanguage = "<?php" + "\n" +
+                        "echo 'Hello World';";
+                    break;
+                case "CSHARP":
+                    this.saveLanguage = "using System;" + "\n" +
+                        "class HelloWorld {" + "\n" +
+                        "static void Main() {" + "\n" +
+                        "Console.WriteLine('Hello World');" + "\n" +
+                        "}" + "\n" +
+                        "}";
+                    break;
+                case "JAVASCRIPT":
+                    this.saveLanguage = "print('Hello World');"
+                    break;
+                case "R":
+                    this.saveLanguage = "print('Hello World')";
+                    break;
+                case "RUBY":
+                    this.saveLanguage = "puts 'Hello World'";
+                    break;
+            }
+        },
 
 
     },
+
 };
 </script>
 
@@ -329,18 +386,18 @@ export default {
                         <v-sheet class="ma-2 pa-2">
                             <div>
                                 <h1>Cerinta</h1>
-                                <p>{{ this.getProblem[this.saveIndex] }}</p>
+                                <p class="ProblemParagraf">{{ this.getProblem[this.saveIndex] }}</p>
 
 
 
                                 <h1>Input</h1>
-                                <p>{{ this.getInputProblem[this.saveIndex] }}</p>
+                                <p class="ProblemParagraf">{{ this.getInputProblem[this.saveIndex] }}</p>
 
                                 <h1>Output</h1>
-                                <p>{{ this.getOutputPorblem[this.saveIndex] }}</p>
+                                <p class="ProblemParagraf">{{ this.getOutputPorblem[this.saveIndex] }}</p>
 
                                 <h1>Exemple</h1>
-                                <p>{{ this.getExempleProblem[this.saveIndex] }}</p>
+                                <p class="ProblemParagraf">{{ this.getExempleProblem[this.saveIndex] }}</p>
                             </div>
                         </v-sheet>
                     </v-col>
@@ -348,15 +405,15 @@ export default {
 
                     <v-col>
                         <v-sheet class="ma-2 pa-2">
-                            <select id="language" @change="onChangeSite">
+                            <select id="language" @change="fillWithText($event)">
 
-                                <v-option value="C">c</v-option>
+                                <option value="C">c</option>
                                 <option value="CPP">c++</option>
                                 <option value="CSHARP">c#</option>
                                 <option value="JAVA8">java</option>
                                 <option value="JAVASCRIPT">javascript</option>
                                 <option value="JAVASCRIPT_NODE">javascript_node</option>
-                                <option value="KOTLIN">kotlin</option>
+                              <!--  <option value="KOTLIN">kotlin</option>-->
                                 <option value="PHP">php</option>
                                 <option value="PYTHON">python</option>
                                 <option value="R">r</option>
@@ -366,7 +423,7 @@ export default {
                             <div class="borderZero">
 
                                 <v-textarea bg-color="white" color="white" label="Code" placeholder="ceva" id="textBox"
-                                    variant="solo">
+                                    variant="solo" :model-value="this.saveLanguage">
                                 </v-textarea>
                                 <div>
                                     <v-container fluid>
@@ -394,7 +451,7 @@ export default {
                                     variant="solo" id="textBoxInput">
                                 </v-text-field>
 
-                                <textarea  label="Code" placeholder="ceva" id="textBoxOutput" variant="solo"></textarea>
+                                <textarea label="Code" placeholder="ceva" id="textBoxOutput" variant="solo"></textarea>
 
 
 
@@ -415,7 +472,7 @@ export default {
 .testbutt {
     cursor: pointer;
     border-bottom-style: groove;
-
+font-size: 20px;
 }
 
 li {
@@ -427,20 +484,39 @@ li {
     visibility: hidden;
 }
 
+.ProblemParagraf {
+    margin-bottom: 25px;
+}
+
 .LevelArea {
 
     border: 1px solid;
     padding: 10px;
     bottom: 50px;
+    margin-bottom: 150px;
 }
 
 .borderZero {
     border: 0px;
 }
-.mr-10{
+
+.mr-10 {
     margin-right: 183px !important;
 }
-.testbutt{
-margin-bottom: 50px;
+
+.testbutt {
+    margin-bottom: 50px;
+}
+
+#textBoxOutput {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    font-size: 16px;
+    resize: none;
 }
 </style>

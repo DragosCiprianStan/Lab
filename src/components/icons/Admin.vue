@@ -47,7 +47,7 @@ export default {
         </v-responsive>
         <v-responsive class="mx-auto" max-width="344">
             <v-text-field label="Password" hide-details="auto" id="password"></v-text-field>
-            <v-btn variant="flat" color="secondary" @click="verifyAdmin">
+            <v-btn variant="flat" color="secondary" @click="verifyAdmin" id="buttonul">
                 Secondary
             </v-btn>
         </v-responsive>
@@ -61,5 +61,8 @@ export default {
 <style scoped>
 #textBoxOutPut {
     left: 10px;
+}
+#buttonul{
+margin-bottom: 170px;
 }
 </style>
